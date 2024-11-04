@@ -70,7 +70,7 @@ export async function downloadNovel(novelId: number, options: CommandOptions) {
                 const chapters = volumeMap.get(volume.name);
                 if (chapters) {
                     for (const { chapterIndex, chapterTitle, chapterUrl } of chapters) {
-                        const modifiedChapterTitle = chapterTitle.replace("\\", "＼").replace("/","／");
+                        const modifiedChapterTitle = halfToAll(chapterTitle);
                         let readFromDisk = false;
                         try {
                             if (!options.onlyImages) {
@@ -599,4 +599,15 @@ function startCount() {
             seconds,
         };
     };
+}
+
+/**
+ * 斜線反轉 + 半形標點符號轉全形
+ * @returns
+ */
+function halfToAll(oldChapterTitle: string) {
+    var outputTitle = oldChapterTitle.replace("\\", "＼").replace("/","／"); //舊有轉換
+    //將其他種不可使用的半形轉換為全形，包含 :*?"<>|
+    outputTitle = outputTitle.replace("*", "＊").replace("?","？").replace('"','＂').replace("<","＜").replace(">","＞").replace("|","｜");
+    return outputTitle;
 }
