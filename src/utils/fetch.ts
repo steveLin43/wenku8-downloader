@@ -10,6 +10,8 @@ export async function fetch(url: string, encoding = 'gbk'): Promise<cheerio.Root
     const res = await axios.get(url, {
         responseType: 'arraybuffer',
         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
             Cookie,
         },
     });
@@ -21,6 +23,10 @@ export async function getCookie() {
         `https://www.wenku8.net/login.php?do=submit&jumpurl=http%3A%2F%2Fwww.wenku8.net%2Findex.php`,
         `username=2497360927&password=testtest&usecookie=315360000&action=login&submit=%26%23160%3B%B5%C7%26%23160%3B%26%23160%3B%C2%BC%26%23160%3B`,
         {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+            },
             responseType: 'arraybuffer',
         }
     );
